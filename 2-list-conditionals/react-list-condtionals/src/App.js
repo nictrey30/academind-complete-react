@@ -18,7 +18,7 @@ class App extends Component {
         age: 26
       }
     ],
-    otherState: 'some other value'
+    togglePersons: true
   };
 
   handleSwitchNames = (newName) => {
@@ -53,7 +53,13 @@ class App extends Component {
     });
   };
 
+  // toggle some property that decide either we display the div with Persons or not
+  handleTogglePersons = () => {
+    this.setState({ togglePersons: !this.state.togglePersons });
+  };
+
   render() {
+    // console.log(this.state.togglePersons);
     const buttonStyle = {
       backgroundColor: 'white',
       font: 'inherit',
@@ -67,30 +73,31 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p>A second paragraph</p>
         {/* <button onClick={this.handleSwitchNames.bind(this, 'Ion')}> */}
-        <button
-          style={buttonStyle}
-          onClick={() => this.handleSwitchNames('Ion')}
-        >
-          Switch Name
+        <button style={buttonStyle} onClick={this.handleTogglePersons}>
+          Toggle Persons
         </button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          handleSwitchNames={this.handleSwitchNames}
-          handleNameChanged={this.handleNameChanged}
-        >
-          My hobbies: racing
-        </Person>
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          handleSwitchNames={this.handleSwitchNames}
-        />
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-          handleSwitchNames={this.handleSwitchNames}
-        />
+        {this.state.togglePersons ? (
+          <div>
+            <Person
+              name={this.state.persons[0].name}
+              age={this.state.persons[0].age}
+              handleSwitchNames={this.handleSwitchNames}
+              handleNameChanged={this.handleNameChanged}
+            >
+              My hobbies: racing
+            </Person>
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              handleSwitchNames={this.handleSwitchNames}
+            />
+            <Person
+              name={this.state.persons[2].name}
+              age={this.state.persons[2].age}
+              handleSwitchNames={this.handleSwitchNames}
+            />
+          </div>
+        ) : null}
       </div>
     );
   }
