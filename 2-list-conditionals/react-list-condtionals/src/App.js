@@ -58,6 +58,7 @@ class App extends Component {
     this.setState({ togglePersons: !this.state.togglePersons });
   };
 
+  // everyhing inside the render method gets executed whenever React re-renders the component
   render() {
     // console.log(this.state.togglePersons);
     const buttonStyle = {
@@ -68,6 +69,34 @@ class App extends Component {
       borderRadius: '5px',
       cursor: 'pointer'
     };
+
+    let persons = null;
+
+    if (this.state.togglePersons) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            handleSwitchNames={this.handleSwitchNames}
+            handleNameChanged={this.handleNameChanged}
+          >
+            My hobbies: racing
+          </Person>
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            handleSwitchNames={this.handleSwitchNames}
+          />
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age}
+            handleSwitchNames={this.handleSwitchNames}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className='App'>
         <h1>Hi, I'm a React App</h1>
@@ -76,28 +105,7 @@ class App extends Component {
         <button style={buttonStyle} onClick={this.handleTogglePersons}>
           Toggle Persons
         </button>
-        {this.state.togglePersons ? (
-          <div>
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-              handleSwitchNames={this.handleSwitchNames}
-              handleNameChanged={this.handleNameChanged}
-            >
-              My hobbies: racing
-            </Person>
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-              handleSwitchNames={this.handleSwitchNames}
-            />
-            <Person
-              name={this.state.persons[2].name}
-              age={this.state.persons[2].age}
-              handleSwitchNames={this.handleSwitchNames}
-            />
-          </div>
-        ) : null}
+        {persons}
       </div>
     );
   }
