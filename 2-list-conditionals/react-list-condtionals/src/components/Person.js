@@ -1,18 +1,23 @@
 import React from 'react';
 import '../css/Person.css';
 
-const Person = (props) => {
+const Person = ({
+  person,
+  handleNameChanged,
+  handleDeletePerson,
+  children
+}) => {
   return (
     <div className='Person'>
-      <p>
-        I'm {props.name} and I am {props.age} years old.
+      <p onClick={() => handleDeletePerson(person.id)}>
+        I'm {person.name} and I am {person.age} years old.
       </p>
-      <p>{props.children}</p>
+      <p>{children}</p>
       {/* the event will be passed automaticall by React to the handleNameChanged function */}
       <input
         type='text'
-        defaultValue={props.name}
-        onChange={(e) => props.handleNameChanged(e, props.index)}
+        defaultValue={person.name}
+        onChange={(e) => handleNameChanged(e, person.id)}
       />
     </div>
   );

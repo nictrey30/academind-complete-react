@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './components/Person';
+import { v1 as uuidv1 } from 'uuid';
 
 class App extends Component {
   state = {
     persons: [
       {
+        id: uuidv1(),
         name: 'Max',
         age: 28
       },
       {
+        id: uuidv1(),
         name: 'Manu',
         age: 29
       },
       {
+        id: uuidv1(),
         name: 'Stephanie',
         age: 26
       }
@@ -21,12 +25,26 @@ class App extends Component {
     togglePersons: true
   };
 
-  handleNameChanged = (e, index) => {
-    console.log(e.target.value, index);
+  handleNameChanged = (e, id) => {
+    this.setState({
+      persons: this.state.persons.map((person) => {
+        if (person.id === id) {
+          return { ...person, name: e.target.value };
+        }
+        return person;
+      })
+    });
   };
   // toggle some property that decide either we display the div with Persons or not
   handleTogglePersons = () => {
+    // we dont use a new cons called persons and call splice on that, then assign it with this.setState, because that constant still refers to the original state, because in JS arrays and objects are passed by reference and splice modifies the array in-place. Instead we can use spread operator or the slice array method
     this.setState({ togglePersons: !this.state.togglePersons });
+  };
+
+  handleDeletePerson = (id) => {
+    this.setState({
+      persons: [...this.state.persons.filter((person) => person.id !== id)]
+    });
   };
 
   // everyhing inside the render method gets executed whenever React re-renders the component
@@ -49,11 +67,10 @@ class App extends Component {
           {this.state.persons.map((person, index) => {
             return (
               <Person
-                key={index}
-                index={index}
-                name={person.name}
-                age={person.age}
+                key={person.id}
+                person={person}
                 handleNameChanged={this.handleNameChanged}
+                handleDeletePerson={this.handleDeletePerson}
               />
             );
           })}

@@ -7,3 +7,6 @@
   margin-bottom: 20px;
   text-align: center;
 }
+.Person p:hover {
+  text-decoration: line-through;
+}
