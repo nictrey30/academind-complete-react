@@ -4,12 +4,7 @@ import '../css/Person.css';
 const Person = (props) => {
   return (
     <div className='Person'>
-      <p
-        // pass method to the state that change the state of the parent component
-        onClick={() => {
-          props.handleSwitchNames('Ana-Maria');
-        }}
-      >
+      <p>
         I'm {props.name} and I am {props.age} years old.
       </p>
       <p>{props.children}</p>
@@ -17,7 +12,7 @@ const Person = (props) => {
       <input
         type='text'
         defaultValue={props.name}
-        onChange={props.handleNameChanged}
+        onChange={(e) => props.handleNameChanged(e, props.index)}
       />
     </div>
   );
