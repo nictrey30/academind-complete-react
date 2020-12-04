@@ -88,11 +88,8 @@ class App extends Component {
             which outputs the length of the entered text below it (e.g. in a
             paragraph).
           </li>
-          <div>
-            <ParagraphLength />
-          </div>
           <li>
-            Create a new component (=> ValidationComponent) which receives the
+            Create a new component (- ValidationComponent) which receives the
             text length as a prop
           </li>
           <li>
@@ -101,9 +98,9 @@ class App extends Component {
             minimum length)
           </li>
           <li>
-            Create another component (=> CharComponent) and style it as an
-            inline box (=> display: inline-block, padding: 16px, text-align:
-            center, margin: 16px, border: 1px solid black).
+            Create another component (- CharComponent) and style it as an inline
+            box (- display: inline-block, padding: 16px, text-align: center,
+            margin: 16px, border: 1px solid black).
           </li>
           <li>
             Render a list of CharComponents where each CharComponent receives a
@@ -114,6 +111,9 @@ class App extends Component {
             When you click a CharComponent, it should be removed from the
             entered text.
           </li>
+          <div>
+            <ParagraphLength />
+          </div>
         </ol>
         {/* <button onClick={this.handleSwitchNames.bind(this, 'Ion')}> */}
         <button style={buttonStyle} onClick={this.handleTogglePersons}>
