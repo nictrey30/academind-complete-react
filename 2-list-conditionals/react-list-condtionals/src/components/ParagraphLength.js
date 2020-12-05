@@ -44,6 +44,7 @@ export default function ParagraphLength() {
       <input
         type='text'
         id='inputText'
+        // the event is passed automatically to handleInputChange
         onChange={handleInputChange}
         value={text}
       />
