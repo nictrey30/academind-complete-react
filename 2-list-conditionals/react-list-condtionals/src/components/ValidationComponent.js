@@ -1,9 +1,9 @@
 const ValidationComponent = ({ pLength }) => {
-  const output = pLength <= 5 ? 'too short' : 'too long';
+  const validationMessage = pLength <= 5 ? 'too short' : 'too long';
 
   return (
     <div>
-      <p>Validation Component: {output}</p>
+      <p>Validation Component: {validationMessage}</p>
     </div>
   );
 };

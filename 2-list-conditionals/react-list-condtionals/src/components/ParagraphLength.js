@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import '../css/ParagraphLength.css';
 import ValidationComponent from './ValidationComponent';
 import CharComponent from './CharComponent';
+import { v1 as uuidv1 } from 'uuid';
 
 export default function ParagraphLength() {
   const [pLength, setPLength] = useState(0);
@@ -12,10 +13,18 @@ export default function ParagraphLength() {
     setPLength(text.length);
   }, [text]);
 
+  const handleChar = (char) => {
+    const regex = new RegExp(char, 'g');
+    const newText = text.replace(regex, '');
+    setText(newText);
+  };
+
   const characterList =
     text.length > 0
-      ? text.split('').map((character, index) => {
-          return <CharComponent key={index} char={character} />;
+      ? text.split('').map((char) => {
+          return (
+            <CharComponent key={uuidv1()} char={char} handleChar={handleChar} />
+          );
         })
       : null;
 
