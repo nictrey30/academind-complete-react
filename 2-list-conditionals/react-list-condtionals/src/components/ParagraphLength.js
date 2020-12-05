@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import '../css/ParagraphLength.css';
 import ValidationComponent from './ValidationComponent';
 import CharComponent from './CharComponent';
-import { v1 as uuidv1 } from 'uuid';
 
 export default function ParagraphLength() {
   const [pLength, setPLength] = useState(0);
@@ -13,17 +12,28 @@ export default function ParagraphLength() {
     setPLength(text.length);
   }, [text]);
 
-  const handleChar = (char) => {
-    const regex = new RegExp(char, 'g');
-    const newText = text.replace(regex, '');
-    setText(newText);
+  const handleInputChange = (e) => {
+    const inputText = e.target.value;
+    setText(inputText.replace(/\s/g, '_'));
+  };
+
+  const handleDeleteChar = (index) => {
+    const newText = text.split('');
+    // The splice() method adds/removes items to/from an array, and returns the removed item(s).
+    newText.splice(index, 1);
+    setText(newText.join(''));
   };
 
   const characterList =
     text.length > 0
-      ? text.split('').map((char) => {
+      ? text.split('').map((char, index) => {
           return (
-            <CharComponent key={uuidv1()} char={char} handleChar={handleChar} />
+            <CharComponent
+              key={index}
+              char={char}
+              // pass args to function-props
+              handleDeleteChar={() => handleDeleteChar(index)}
+            />
           );
         })
       : null;
@@ -34,7 +44,7 @@ export default function ParagraphLength() {
       <input
         type='text'
         id='inputText'
-        onChange={(e) => setText(e.target.value)}
+        onChange={handleInputChange}
         value={text}
       />
       <p>The text has {pLength} characters in it.</p>

@@ -1,8 +1,8 @@
 import '../css/CharComponent.css';
 
-const CharComponent = ({ char, handleChar }) => {
+const CharComponent = ({ char, handleDeleteChar }) => {
   return (
-    <div className='CharComponent' onClick={() => handleChar(char)}>
+    <div className='CharComponent' onClick={handleDeleteChar}>
       {char}
     </div>
   );
