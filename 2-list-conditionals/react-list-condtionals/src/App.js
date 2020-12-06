@@ -3,6 +3,8 @@ import './App.css';
 import Person from './components/Person';
 import ParagraphLength from './components/ParagraphLength';
 import { v1 as uuidv1 } from 'uuid';
+import Radium, { StyleRoot } from 'radium';
+
 const personAge = () => Math.floor(Math.random() * 100 + 18);
 
 class App extends Component {
@@ -60,7 +62,11 @@ class App extends Component {
       outline: 'none',
       borderRadius: '5px',
       padding: '5px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -82,6 +88,10 @@ class App extends Component {
         </div>
       );
       buttonStyle.backgroundColor = 'red';
+      buttonStyle[':hover'] = {
+        backgroundColor: '#ffcccb',
+        color: 'black'
+      };
     }
 
     const classes = [];
@@ -89,20 +99,22 @@ class App extends Component {
     if (this.state.persons.length <= 1) classes.push('bold');
 
     return (
-      <div className='App'>
-        {/* setting the class of this p tag dinamically based upon the length of the persons */}
-        <p className={classes.join(' ')}>This is really working</p>
-        <div>
-          <ParagraphLength />
+      <StyleRoot>
+        <div className='App'>
+          {/* setting the class of this p tag dinamically based upon the length of the persons */}
+          <p className={classes.join(' ')}>This is really working</p>
+          <div>
+            <ParagraphLength />
+          </div>
+          {/* <button onClick={this.handleSwitchNames.bind(this, 'Ion')}> */}
+          <button style={buttonStyle} onClick={this.handleTogglePersons}>
+            Toggle Persons
+          </button>
+          {persons}
         </div>
-        {/* <button onClick={this.handleSwitchNames.bind(this, 'Ion')}> */}
-        <button style={buttonStyle} onClick={this.handleTogglePersons}>
-          Toggle Persons
-        </button>
-        {persons}
-      </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);

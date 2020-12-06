@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/Person.css';
+import Radium from 'radium';
 
 const Person = ({
   person,
@@ -7,8 +8,13 @@ const Person = ({
   handleDeletePerson,
   children
 }) => {
+  const style = {
+    '@media (min-width: 500px)': {
+      width: '450px'
+    }
+  };
   return (
-    <div className='Person'>
+    <div className='Person' style={style}>
       <p onClick={() => handleDeletePerson(person.id)}>
         I'm {person.name} and I am {person.age} years old.
       </p>
@@ -23,4 +29,4 @@ const Person = ({
   );
 };
 
-export default Person;
+export default Radium(Person);
