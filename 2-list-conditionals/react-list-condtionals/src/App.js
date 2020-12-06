@@ -3,9 +3,24 @@ import './App.css';
 import Person from './components/Person';
 import ParagraphLength from './components/ParagraphLength';
 import { v1 as uuidv1 } from 'uuid';
-import Radium, { StyleRoot } from 'radium';
+import styled from 'styled-components';
 
 const personAge = () => Math.floor(Math.random() * 100 + 18);
+
+const StyledButton = styled.button`
+  background-color: ${(props) => (props.alt ? 'red' : 'green')};
+  color: white;
+  font: inherit;
+  border: 1px solid grey;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => (props.alt ? 'salmon' : 'lightgreen')};
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -53,22 +68,6 @@ class App extends Component {
 
   // everyhing inside the render method gets executed whenever React re-renders the component
   render() {
-    // console.log(this.state.togglePersons);
-    const buttonStyle = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid grey',
-      outline: 'none',
-      borderRadius: '5px',
-      padding: '5px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
-
     let persons = null;
 
     // if this condition is true => persons can be seen
@@ -87,11 +86,6 @@ class App extends Component {
           })}
         </div>
       );
-      buttonStyle.backgroundColor = 'red';
-      buttonStyle[':hover'] = {
-        backgroundColor: '#ffcccb',
-        color: 'black'
-      };
     }
 
     const classes = [];
@@ -99,22 +93,24 @@ class App extends Component {
     if (this.state.persons.length <= 1) classes.push('bold');
 
     return (
-      <StyleRoot>
-        <div className='App'>
-          {/* setting the class of this p tag dinamically based upon the length of the persons */}
-          <p className={classes.join(' ')}>This is really working</p>
-          <div>
-            <ParagraphLength />
-          </div>
-          {/* <button onClick={this.handleSwitchNames.bind(this, 'Ion')}> */}
-          <button style={buttonStyle} onClick={this.handleTogglePersons}>
-            Toggle Persons
-          </button>
-          {persons}
+      <div className='App'>
+        {/* setting the class of this p tag dinamically based upon the length of the persons */}
+        <p className={classes.join(' ')}>This is really working</p>
+        <div>
+          <ParagraphLength />
         </div>
-      </StyleRoot>
+        {/* <button onClick={this.handleSwitchNames.bind(this, 'Ion')}> */}
+        {/* we want to change some styles based upon some circumstance outside the component, in this case -- based on togglePersons. We can pass a prop(alt) with the value of this.state.togglePersons */}
+        <StyledButton
+          onClick={this.handleTogglePersons}
+          alt={this.state.togglePersons ? 1 : 0}
+        >
+          Toggle Persons
+        </StyledButton>
+        {persons}
+      </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;

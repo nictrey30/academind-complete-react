@@ -1,6 +1,25 @@
 import React from 'react';
-import '../css/Person.css';
-import Radium from 'radium';
+import styled from 'styled-components';
+// import '../css/Person.css';
+
+// every method provided by this 'styled' object returns a React component
+const StyledDiv = styled.div`
+  width: 60%;
+  margin: 16px auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  p:hover {
+    text-decoration: line-through;
+  }
+
+  @media (min-width: 500px) {
+    width: 450px;
+  }
+`;
 
 const Person = ({
   person,
@@ -8,13 +27,9 @@ const Person = ({
   handleDeletePerson,
   children
 }) => {
-  const style = {
-    '@media (min-width: 500px)': {
-      width: '450px'
-    }
-  };
   return (
-    <div className='Person' style={style}>
+    // <div className='Person' style={style}>
+    <StyledDiv>
       <p onClick={() => handleDeletePerson(person.id)}>
         I'm {person.name} and I am {person.age} years old.
       </p>
@@ -25,8 +40,8 @@ const Person = ({
         defaultValue={person.name}
         onChange={(e) => handleNameChanged(e, person.id)}
       />
-    </div>
+    </StyledDiv>
   );
 };
 
-export default Radium(Person);
+export default Person;
