@@ -4,6 +4,7 @@ import classes from './App.module.css';
 import Person from './components/Person';
 import ParagraphLength from './components/ParagraphLength';
 import { v1 as uuidv1 } from 'uuid';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const personAge = () => Math.floor(Math.random() * 100 + 18);
 
@@ -31,12 +32,9 @@ class App extends Component {
 
   handleNameChanged = (e, id) => {
     this.setState({
-      persons: this.state.persons.map((person) => {
-        if (person.id === id) {
-          return { ...person, name: e.target.value };
-        }
-        return person;
-      })
+      persons: this.state.persons.map((person) =>
+        person.id === id ? { ...person, name: e.target.value } : person
+      )
     });
   };
   // toggle some property that decide either we display the div with Persons or not
@@ -64,12 +62,13 @@ class App extends Component {
         <div>
           {this.state.persons.map((person) => {
             return (
-              <Person
-                key={person.id}
-                person={person}
-                handleNameChanged={this.handleNameChanged}
-                handleDeletePerson={this.handleDeletePerson}
-              />
+              <ErrorBoundary key={person.id}>
+                <Person
+                  person={person}
+                  handleNameChanged={this.handleNameChanged}
+                  handleDeletePerson={this.handleDeletePerson}
+                />
+              </ErrorBoundary>
             );
           })}
         </div>
