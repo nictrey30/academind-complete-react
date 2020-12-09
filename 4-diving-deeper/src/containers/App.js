@@ -67,16 +67,12 @@ class App extends Component {
       btnClass.push(classes.Red);
     }
 
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) assignedClasses.push(classes.red); // "App_red__ai-vW"
-    if (this.state.persons.length <= 1) assignedClasses.push(classes.bold); // "App_bold__Gusdv"
-
     return (
       <div className={classes.App}>
         <Cockpit
-          assignedClasses={assignedClasses.join(' ')}
-          btnClass={btnClass.join(' ')}
           handleTogglePersons={this.handleTogglePersons}
+          btnClass={btnClass.join(' ')}
+          persons={this.state.persons}
         />
         {persons}
       </div>
