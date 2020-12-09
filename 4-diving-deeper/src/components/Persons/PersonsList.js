@@ -2,8 +2,9 @@ import React from 'react';
 import Person from './Person';
 import ErrorBoundary from '../ErrorBoundary';
 
-const PersonsList = ({ persons, handleNameChanged, handleDeletePerson }) =>
-  persons.map((person) => (
+const PersonsList = ({ persons, handleNameChanged, handleDeletePerson }) => {
+  console.log('[PersonsList.js] rendering...');
+  return persons.map((person) => (
     <div key={person.id}>
       <ErrorBoundary>
         <Person
@@ -14,5 +15,6 @@ const PersonsList = ({ persons, handleNameChanged, handleDeletePerson }) =>
       </ErrorBoundary>
     </div>
   ));
+};
 
 export default PersonsList;

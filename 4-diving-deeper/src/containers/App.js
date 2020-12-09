@@ -8,6 +8,13 @@ import { v1 as uuidv1 } from 'uuid';
 const personAge = () => Math.floor(Math.random() * 100 + 18);
 
 class App extends Component {
+  constructor(props) {
+    // execute the constructor of the Component
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
+  // class field declaration
   state = {
     persons: [
       {
@@ -28,6 +35,17 @@ class App extends Component {
     ],
     togglePersons: true
   };
+
+  // after the constructor, getDerivedStateFromProps runs
+  static getDerivedStateFromProps(props, state) {
+    console.log(`[App.js] getDerivedStateFromProps, ${props}`);
+    // should return updated state
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
 
   handleNameChanged = (e, id) => {
     this.setState({
@@ -50,6 +68,7 @@ class App extends Component {
 
   // everyhing inside the render method gets executed whenever React re-renders the component
   render() {
+    console.log('[App.js] render');
     let persons = null;
 
     // if this condition is true => persons can be seen
@@ -65,7 +84,9 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
+        {/* forward the props received by App to Cockpit */}
         <Cockpit
+          title={this.props.appTitle}
           handleTogglePersons={this.handleTogglePersons}
           persons={this.state.persons}
           showPersons={this.state.togglePersons}
