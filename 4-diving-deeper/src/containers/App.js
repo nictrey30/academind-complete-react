@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 // CSS Modules - import the styles in the css file as properties on the 'classes' object
 import classes from './App.module.css';
-import Person from '../components/Persons/Person';
-import ParagraphLength from '../components/ParagraphLength';
+import Cockpit from '../components/Cockpit/Cockpit';
 import { v1 as uuidv1 } from 'uuid';
-import ErrorBoundary from '../components/ErrorBoundary';
+import PersonsList from '../components/Persons/PersonsList';
 
 const personAge = () => Math.floor(Math.random() * 100 + 18);
 
@@ -59,19 +58,11 @@ class App extends Component {
     // if this condition is true => persons can be seen
     if (this.state.togglePersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person) => {
-            return (
-              <ErrorBoundary key={person.id}>
-                <Person
-                  person={person}
-                  handleNameChanged={this.handleNameChanged}
-                  handleDeletePerson={this.handleDeletePerson}
-                />
-              </ErrorBoundary>
-            );
-          })}
-        </div>
+        <PersonsList
+          persons={this.state.persons}
+          handleNameChanged={this.handleNameChanged}
+          handleDeletePerson={this.handleDeletePerson}
+        />
       );
       btnClass.push(classes.Red);
     }
@@ -80,24 +71,13 @@ class App extends Component {
     if (this.state.persons.length <= 2) assignedClasses.push(classes.red); // "App_red__ai-vW"
     if (this.state.persons.length <= 1) assignedClasses.push(classes.bold); // "App_bold__Gusdv"
 
-    // console.log(classes);
-    // console.log(assignedClasses);
-
     return (
       <div className={classes.App}>
-        {/* setting the class of this p tag dinamically based upon the length of the persons */}
-        <p className={assignedClasses.join(' ')}>This is really working</p>
-        <div>
-          <ParagraphLength />
-        </div>
-        {/* <button onClick={this.handleSwitchNames.bind(this, 'Ion')}> */}
-        {/* we want to change some styles based upon some circumstance outside the component, in this case -- based on togglePersons. We can pass a prop(alt) with the value of this.state.togglePersons */}
-        <button
-          className={btnClass.join(' ')}
-          onClick={this.handleTogglePersons}
-        >
-          Toggle Persons
-        </button>
+        <Cockpit
+          assignedClasses={assignedClasses.join(' ')}
+          btnClass={btnClass.join(' ')}
+          handleTogglePersons={this.handleTogglePersons}
+        />
         {persons}
       </div>
     );
