@@ -36,7 +36,7 @@ class App extends Component {
     togglePersons: true
   };
 
-  // after the constructor, getDerivedStateFromProps runs
+  // after the constructor, getDerivedStateFromProps runs. It syncs the local state with the props we are getting
   static getDerivedStateFromProps(props, state) {
     console.log(`[App.js] getDerivedStateFromProps, ${props}`);
     // should return updated state
