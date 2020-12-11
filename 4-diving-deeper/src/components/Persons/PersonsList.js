@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Person from './Person';
 import ErrorBoundary from '../ErrorBoundary';
 
-class PersonsList extends Component {
+// PureComponent is a normal Component that already implements shouldComponentUpdate with a complete props check, so it checks for any changes in any prop  of that component
+class PersonsList extends PureComponent {
   // static getDerivedStateFromProps(props, state) {
   //   console.log('[PersonsList.js] getDerivedStateFromProps');
   //   return state;
@@ -10,8 +11,16 @@ class PersonsList extends Component {
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log('[PersonsList.js] shouldComponentUpdate');
-  // we have to return true or false
-  //   return true;
+  //   // we have to return true or false
+  //   if (
+  //     nextProps.persons !== this.props.persons ||
+  //     nextProps.handleNameChanged !== this.props.handleNameChanged ||
+  //     nextProps.handledeletePerson !== this.props.handleDeletePerson
+  //   ) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
   // }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -23,6 +32,11 @@ class PersonsList extends Component {
     // will run once we are done with all the updating
     console.log('[PersonsList.js] componentDidUpdate');
     console.log(snapshot);
+  }
+
+  // cleanup work - componentWillUnmount - any code that needs to run right before the component is removed
+  componentWillUnmount() {
+    console.log('[PersonsList.js] componentWillUnmount');
   }
 
   render() {

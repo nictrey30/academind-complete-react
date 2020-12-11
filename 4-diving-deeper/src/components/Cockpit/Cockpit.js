@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Cockpit.module.css';
 import ParagraphLength from '../ParagraphLength';
 
-const Cockpit = ({ handleTogglePersons, persons, showPersons, title }) => {
+const Cockpit = ({
+  handleTogglePersons,
+  personsLength,
+  showPersons,
+  title
+}) => {
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // http request...
+    const timer = setTimeout(() => {
+      alert('saved data to cloud!');
+    }, 1000);
+    // cleanup - the returned anonymous function runs BEFORE the main useEffect runs, but AFTER the (first) render cycle
+    return () => {
+      clearTimeout(timer);
+      console.log('[Cockpit.js] cleanup work');
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('Cockpit.js] 2nd useEffect');
+  });
+
   const assignedClasses = [];
-  if (persons.length <= 2) assignedClasses.push(classes.red); // "Cockpit_red__ai-vW"
-  if (persons.length <= 1) assignedClasses.push(classes.bold); // "Cockpit_bold__Gusdv"
+  if (personsLength <= 2) assignedClasses.push(classes.red); // "Cockpit_red__ai-vW"
+  if (personsLength <= 1) assignedClasses.push(classes.bold); // "Cockpit_bold__Gusdv"
 
   let btnClass = showPersons ? classes.Red : '';
 
@@ -23,4 +45,8 @@ const Cockpit = ({ handleTogglePersons, persons, showPersons, title }) => {
     </div>
   );
 };
-export default Cockpit;
+
+// The best case of wrapping a component in React.memo() is when you expect the functional component to render often and usually with the same props.
+
+// A common situation that makes a component render with the same props is being forced to render by a parent component.
+export default React.memo(Cockpit);

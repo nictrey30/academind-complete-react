@@ -33,7 +33,8 @@ class App extends Component {
         age: personAge()
       }
     ],
-    togglePersons: true
+    togglePersons: true,
+    toggleCockpit: true
   };
 
   // after the constructor, getDerivedStateFromProps runs. It syncs the local state with the props we are getting
@@ -45,6 +46,15 @@ class App extends Component {
 
   componentDidMount() {
     console.log('[App.js] componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
   }
 
   handleNameChanged = (e, id) => {
@@ -81,16 +91,24 @@ class App extends Component {
         />
       );
     }
-
+    console.log(this.state.toggleCockpit);
     return (
       <div className={classes.App}>
-        {/* forward the props received by App to Cockpit */}
-        <Cockpit
-          title={this.props.appTitle}
-          handleTogglePersons={this.handleTogglePersons}
-          persons={this.state.persons}
-          showPersons={this.state.togglePersons}
-        />
+        <button
+          onClick={() =>
+            this.setState({ toggleCockpit: !this.state.toggleCockpit })
+          }
+        >
+          Toggle Cockpit
+        </button>
+        {this.state.toggleCockpit ? (
+          <Cockpit
+            title={this.props.appTitle}
+            handleTogglePersons={this.handleTogglePersons}
+            personsLength={this.state.persons.length}
+            showPersons={this.state.togglePersons}
+          />
+        ) : null}
         {persons}
       </div>
     );
