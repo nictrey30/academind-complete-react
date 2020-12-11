@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import classes from './Person.module.css';
+import React, { Component, Fragment } from 'react';
+// import Aux from '../../hoc/Aux';
+// import classes from './Person.module.css';
 
 class Person extends Component {
   render() {
     console.log('[Person] rendering...');
     return (
-      <div className={classes.Person}>
+      // <div className={classes.Person}>
+      // </div>
+      <Fragment>
         <p onClick={() => this.props.handleDeletePerson(this.props.person.id)}>
           I'm {this.props.person.name} and I am {this.props.person.age} years
           old.
@@ -18,7 +21,7 @@ class Person extends Component {
             this.props.handleNameChanged(e, this.props.person.id)
           }
         />
-      </div>
+      </Fragment>
     );
   }
 }

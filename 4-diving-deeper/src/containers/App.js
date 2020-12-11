@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import classes from './App.module.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 import PersonsList from '../components/Persons/PersonsList';
+// import WithClass from '../hoc/WithClass';
+import withClassFunctional from '../hoc/withClassFunctional';
+import Aux from '../hoc/Aux';
 import { v1 as uuidv1 } from 'uuid';
 
 const personAge = () => Math.floor(Math.random() * 100 + 18);
@@ -93,7 +96,7 @@ class App extends Component {
     }
     console.log(this.state.toggleCockpit);
     return (
-      <div className={classes.App}>
+      <Aux>
         <button
           onClick={() =>
             this.setState({ toggleCockpit: !this.state.toggleCockpit })
@@ -110,9 +113,9 @@ class App extends Component {
           />
         ) : null}
         {persons}
-      </div>
+      </Aux>
     );
   }
 }
 
-export default App;
+export default withClassFunctional(App, classes.App);
