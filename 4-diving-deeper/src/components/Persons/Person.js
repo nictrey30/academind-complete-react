@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
-// import Aux from '../../hoc/Aux';
-// import classes from './Person.module.css';
+import React, { Component } from 'react';
+import Aux from '../../hoc/Aux';
+import classes from './Person.module.css';
+import withClassFunctional from '../../hoc/withClassFunctional';
 
 class Person extends Component {
   render() {
@@ -8,7 +9,7 @@ class Person extends Component {
     return (
       // <div className={classes.Person}>
       // </div>
-      <Fragment>
+      <Aux>
         <p onClick={() => this.props.handleDeletePerson(this.props.person.id)}>
           I'm {this.props.person.name} and I am {this.props.person.age} years
           old.
@@ -21,9 +22,9 @@ class Person extends Component {
             this.props.handleNameChanged(e, this.props.person.id)
           }
         />
-      </Fragment>
+      </Aux>
     );
   }
 }
 
-export default Person;
+export default withClassFunctional(Person, classes.Person);

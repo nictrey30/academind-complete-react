@@ -5,9 +5,11 @@ import React from 'react';
 // this hoc has the purpose to add a div with a css class around any element
 const withClassFunctional = (WrappedComponent, className) => {
   // returning a component function
+  // the props are the props of our WrappedComponent
   return (props) => (
     <div className={className}>
-      <WrappedComponent />
+      {/* forward pros to the WrappedComponent */}
+      <WrappedComponent {...props} />
     </div>
   );
 };

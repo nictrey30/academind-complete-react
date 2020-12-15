@@ -5,7 +5,7 @@
   box-shadow: 0 2px 3px #ccc;
   padding: 16px;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
 }
 .Person p:hover {
   text-decoration: line-through;

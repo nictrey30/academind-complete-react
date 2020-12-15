@@ -5,8 +5,8 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import PersonsList from '../components/Persons/PersonsList';
 // import WithClass from '../hoc/WithClass';
 import withClassFunctional from '../hoc/withClassFunctional';
-import Aux from '../hoc/Aux';
 import { v1 as uuidv1 } from 'uuid';
+import Aux from '../hoc/Aux';
 
 const personAge = () => Math.floor(Math.random() * 100 + 18);
 
