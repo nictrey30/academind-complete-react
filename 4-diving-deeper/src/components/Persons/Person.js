@@ -26,5 +26,4 @@ class Person extends Component {
     );
   }
 }
-
 export default withClassFunctional(Person, classes.Person);
