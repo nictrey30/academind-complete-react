@@ -37,7 +37,8 @@ class App extends Component {
       }
     ],
     togglePersons: true,
-    toggleCockpit: true
+    toggleCockpit: true,
+    changeCounter: 0
   };
 
   // after the constructor, getDerivedStateFromProps runs. It syncs the local state with the props we are getting
@@ -61,12 +62,16 @@ class App extends Component {
   }
 
   handleNameChanged = (e, id) => {
-    this.setState({
+    // this.setState is called synchronously here, but it's not guaranteed to execute and finish immediately
+    // setting the state of changeCounter if we are depending on the old state
+    this.setState((prevState, props) => ({
       persons: this.state.persons.map((person) =>
         person.id === id ? { ...person, name: e.target.value } : person
-      )
-    });
+      ),
+      changeCounter: prevState.changeCounter + 1
+    }));
   };
+
   // toggle some property that decide either we display the div with Persons or not
   handleTogglePersons = () => {
     // we dont use a new cons called persons and call splice on that, then assign it with this.setState, because that constant still refers to the original state, because in JS arrays and objects are passed by reference and splice modifies the array in-place. Instead we can use spread operator or the slice array method
