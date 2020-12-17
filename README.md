@@ -1,3 +1,1 @@
 # academind-complete-react
-
-academind
