@@ -7,6 +7,8 @@ import PersonsList from '../components/Persons/PersonsList';
 import withClassFunctional from '../hoc/withClassFunctional';
 import { v1 as uuidv1 } from 'uuid';
 import Aux from '../hoc/Aux';
+// import the authContext
+import AuthContext from '../contexts/auth-context';
 
 const personAge = () => Math.floor(Math.random() * 100 + 18);
 
@@ -36,6 +38,7 @@ class App extends Component {
         age: personAge()
       }
     ],
+    authenticated: false,
     togglePersons: true,
     toggleCockpit: true,
     changeCounter: 0
@@ -84,6 +87,10 @@ class App extends Component {
     });
   };
 
+  handleLogin = () => {
+    this.setState({ authenticated: true });
+  };
+
   // everyhing inside the render method gets executed whenever React re-renders the component
   render() {
     console.log('[App.js] render');
@@ -110,12 +117,19 @@ class App extends Component {
           Toggle Cockpit
         </button>
         {this.state.toggleCockpit ? (
-          <Cockpit
-            title={this.props.appTitle}
-            handleTogglePersons={this.handleTogglePersons}
-            personsLength={this.state.persons.length}
-            showPersons={this.state.togglePersons}
-          />
+          <AuthContext.Provider
+            value={{
+              authenticated: this.state.authenticated,
+              login: this.handleLogin
+            }}
+          >
+            <Cockpit
+              title={this.props.appTitle}
+              handleTogglePersons={this.handleTogglePersons}
+              personsLength={this.state.persons.length}
+              showPersons={this.state.togglePersons}
+            />
+          </AuthContext.Provider>
         ) : null}
         {persons}
       </Aux>

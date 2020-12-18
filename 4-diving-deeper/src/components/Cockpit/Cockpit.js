@@ -1,13 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.module.css';
 import ParagraphLength from '../ParagraphLength';
 
 const Cockpit = ({
+  login,
   handleTogglePersons,
   personsLength,
   showPersons,
   title
 }) => {
+  // create a refference
+  const toggleBtnRef = useRef();
+  // useEffect runs after every render cycle
+  useEffect(() => {
+    toggleBtnRef.current.click();
+  }, []);
+
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     // http request...
@@ -39,9 +47,14 @@ const Cockpit = ({
       <div>
         <ParagraphLength />
       </div>
-      <button className={btnClass} onClick={handleTogglePersons}>
+      <button
+        className={btnClass}
+        onClick={handleTogglePersons}
+        ref={toggleBtnRef}
+      >
         Toggle Persons
       </button>
+      <button>Log In</button>
     </div>
   );
 };
