@@ -116,22 +116,23 @@ class App extends Component {
         >
           Toggle Cockpit
         </button>
-        {this.state.toggleCockpit ? (
-          <AuthContext.Provider
-            value={{
-              authenticated: this.state.authenticated,
-              login: this.handleLogin
-            }}
-          >
+
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.handleLogin
+          }}
+        >
+          {this.state.toggleCockpit ? (
             <Cockpit
               title={this.props.appTitle}
               handleTogglePersons={this.handleTogglePersons}
               personsLength={this.state.persons.length}
               showPersons={this.state.togglePersons}
             />
-          </AuthContext.Provider>
-        ) : null}
-        {persons}
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }

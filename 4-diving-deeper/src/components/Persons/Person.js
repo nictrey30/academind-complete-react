@@ -3,6 +3,7 @@ import Aux from '../../hoc/Aux';
 import classes from './Person.module.css';
 import withClassFunctional from '../../hoc/withClassFunctional';
 import PropTypes from 'prop-types';
+import AuthContext from '../../contexts/auth-context';
 
 class Person extends Component {
   constructor(props) {
@@ -19,6 +20,15 @@ class Person extends Component {
       // <div className={classes.Person}>
       // </div>
       <Aux>
+        <AuthContext.Consumer>
+          {(context) => {
+            return context.authenticated ? (
+              <h4>Authenticated</h4>
+            ) : (
+              <h4>Please Log In</h4>
+            );
+          }}
+        </AuthContext.Consumer>
         <p onClick={() => this.props.handleDeletePerson(this.props.person.id)}>
           I'm {this.props.person.name} and I am {this.props.person.age} years
           old.

@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import classes from './Cockpit.module.css';
 import ParagraphLength from '../ParagraphLength';
+import AuthContext from '../../contexts/auth-context';
 
 const Cockpit = ({
   login,
@@ -9,6 +10,8 @@ const Cockpit = ({
   showPersons,
   title
 }) => {
+  // get the context into the const
+  const authContext = useContext(AuthContext);
   // create a refference
   const toggleBtnRef = useRef();
   // useEffect runs after every render cycle
@@ -54,7 +57,7 @@ const Cockpit = ({
       >
         Toggle Persons
       </button>
-      <button>Log In</button>
+      <button onClick={authContext.login}>Log In</button>
     </div>
   );
 };
