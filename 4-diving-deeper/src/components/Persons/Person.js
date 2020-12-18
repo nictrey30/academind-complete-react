@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 import classes from './Person.module.css';
 import withClassFunctional from '../../hoc/withClassFunctional';
+import PropTypes from 'prop-types';
 
 class Person extends Component {
   render() {
@@ -26,4 +27,15 @@ class Person extends Component {
     );
   }
 }
+
+// propTypes is a special property that you can add to any js component object that react will watchout for in dev mode and give you a awarning if you pass incorect props
+// what props this component uses and which type they should be
+// key-value pairs, where the keys are the prop names, and the values their types
+Person.propTypes = {
+  handleDeletePerson: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  handleNameChanged: PropTypes.func
+};
+
 export default withClassFunctional(Person, classes.Person);
