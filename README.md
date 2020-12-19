@@ -1,2 +1,2 @@
 # academind-complete-react
-test ssh
+test ssh - new wsl2
