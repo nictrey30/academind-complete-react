@@ -51,7 +51,7 @@ class Person extends Component {
   }
 }
 
-// propTypes is a special property that you can add to any js component object that react will watchout for in dev mode and give you a awarning if you pass incorect props
+// propTypes is a special property that you can add to any js component object that react will watch out for in dev mode and give you a awarning if you pass incorrect props
 // what props this component uses and which type they should be
 // key-value pairs, where the keys are the prop names, and the values their types
 Person.propTypes = {
