@@ -51,6 +51,12 @@ export default class BurgerBuilder extends Component {
     });
   };
   render() {
+    const disabledInfo = {
+      ...this.state.ingredients
+    };
+    for (let key in disabledInfo) {
+      disabledInfo[key] = disabledInfo[key] <= 0;
+    }
     console.log(this.state.totalPrice);
     return (
       <Aux>
@@ -58,6 +64,7 @@ export default class BurgerBuilder extends Component {
         <BuildControls
           addIngredientHandler={this.addIngredientHandler}
           removeIngredientHandler={this.removeIngredientHandler}
+          disabled={disabledInfo}
         />
       </Aux>
     );

@@ -25,14 +25,19 @@ const controls = [
 const buildControls = (props) => {
   return (
     <div className={classes.BuildControls}>
-      {controls.map((control) => (
-        <BuildControl
-          key={control.label}
-          label={control.label}
-          ingredientAdded={() => props.addIngredientHandler(control.type)}
-          ingredientRemoved={() => props.removeIngredientHandler(control.type)}
-        />
-      ))}
+      {controls.map((control) => {
+        return (
+          <BuildControl
+            key={control.label}
+            label={control.label}
+            ingredientAdded={() => props.addIngredientHandler(control.type)}
+            ingredientRemoved={() =>
+              props.removeIngredientHandler(control.type)
+            }
+            disabled={props.disabled[control.type]}
+          />
+        );
+      })}
     </div>
   );
 };
