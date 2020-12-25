@@ -24,7 +24,9 @@ export default class BurgerBuilder extends Component {
     // base price of the burger, without any ingredients
     totalPrice: 4,
     // becomes true one we can buy the burger
-    purchasable: false
+    purchasable: false,
+    // tracking if the order button was clicked
+    purchasing: false
   };
   updatePurchaseState = (ingredients) => {
     const sum = Object.keys(ingredients)
@@ -90,6 +92,13 @@ export default class BurgerBuilder extends Component {
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
     this.updatePurchaseState(updatedIngredients);
   };
+  purchaseHandler = () => {
+    this.setState({ purchasing: true });
+  };
+  // for closing the order -> close the modal aka we dont want to order for now
+  purchaseCancelHandler = () => {
+    this.setState({ purchasing: false });
+  };
   render() {
     const disabledInfo = {
       ...this.state.ingredients
@@ -100,13 +109,18 @@ export default class BurgerBuilder extends Component {
     console.log(this.state.totalPrice);
     return (
       <Aux>
-        <Modal>
+        {/* show is an arbitrary named prop passed to the Modal wrapper/ only if this.state.purchasing is true, the modal should be visible */}
+        <Modal
+          show={this.state.purchasing}
+          modalClosed={this.purchaseCancelHandler}
+        >
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addIngredientHandler={this.addIngredientHandler}
           removeIngredientHandler={this.removeIngredientHandler}
+          ordered={this.purchaseHandler}
           purchasable={this.state.purchasable}
           disabled={disabledInfo}
           price={this.state.totalPrice}
