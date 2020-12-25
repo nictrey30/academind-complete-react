@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 // map prices for each ingredient
 const INGREDIENT_PRICES = {
@@ -25,7 +27,6 @@ export default class BurgerBuilder extends Component {
     purchasable: false
   };
   updatePurchaseState = (ingredients) => {
-    // create an array of string entries from the ingredients object, and then map it to the value of those ingredients to calculate the sum(quantity) of all ingredients. After that reduce it to the sum of all those values
     const sum = Object.keys(ingredients)
       .map((igKey) => {
         return ingredients[igKey];
@@ -99,6 +100,9 @@ export default class BurgerBuilder extends Component {
     console.log(this.state.totalPrice);
     return (
       <Aux>
+        <Modal>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addIngredientHandler={this.addIngredientHandler}
