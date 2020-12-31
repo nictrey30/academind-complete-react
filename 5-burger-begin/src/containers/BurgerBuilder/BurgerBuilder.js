@@ -99,6 +99,9 @@ export default class BurgerBuilder extends Component {
   purchaseCancelHandler = () => {
     this.setState({ purchasing: false });
   };
+  purchaseContinueHandler = () => {
+    alert('You continue!');
+  };
   render() {
     const disabledInfo = {
       ...this.state.ingredients
@@ -106,7 +109,6 @@ export default class BurgerBuilder extends Component {
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
-    console.log(this.state.totalPrice);
     return (
       <Aux>
         {/* show is an arbitrary named prop passed to the Modal wrapper/ only if this.state.purchasing is true, the modal should be visible */}
@@ -114,7 +116,12 @@ export default class BurgerBuilder extends Component {
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
         >
-          <OrderSummary ingredients={this.state.ingredients} />
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+            price={this.state.totalPrice}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
