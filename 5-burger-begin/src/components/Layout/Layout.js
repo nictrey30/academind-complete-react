@@ -7,7 +7,7 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
   state = {
-    // if the sidedrawer is visible or not
+    // if the sidedrawer is visible or not, it will be visible after clicked on the DrawToggle button
     showSideDrawer: false
   };
 
@@ -16,6 +16,7 @@ class Layout extends Component {
   };
 
   sideDrawerToggleHandler = () => {
+    // setting the state when it depends on the old state...we do this because of the async nature of React
     this.setState((prevState) => {
       return { showSideDrawer: !prevState.showSideDrawer };
     });
