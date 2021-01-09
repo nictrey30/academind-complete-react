@@ -7,6 +7,7 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
   state = {
+    // if the sidedrawer is visible or not
     showSideDrawer: false
   };
 

@@ -6,6 +6,7 @@ import Backdrop from '../Backdrop/Backdrop';
 
 const modal = (props) => (
   <Aux>
+    {/* if the modal is shown, the backdrop should be shown */}
     <Backdrop show={props.show} clicked={props.modalClosed} />
     <div
       className={classes.Modal}
