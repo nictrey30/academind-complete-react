@@ -9,7 +9,9 @@ import './Blog.css';
 class Blog extends Component {
   state = {
     posts: [],
-    selectedPostId: null
+    selectedPostId: null,
+    // handling errors locally
+    error: false
   };
   async componentDidMount() {
     try {
@@ -20,7 +22,8 @@ class Blog extends Component {
       const updatedPosts = posts.map((post) => ({ ...post, author: 'Max' }));
       this.setState({ posts: updatedPosts });
     } catch (error) {
-      console.log(error.message);
+      // console.log(`Error: ${error.message}`);
+      this.setState({ error: true });
     }
   }
 
@@ -29,15 +32,18 @@ class Blog extends Component {
   };
 
   render() {
+    let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
     // array of jsx elements
-    const posts = this.state.posts.map((post) => (
-      <Post
-        key={post.id}
-        title={post.title}
-        author={post.author}
-        clicked={() => this.postSelectedHandler(post.id)}
-      />
-    ));
+    if (!this.state.error) {
+      posts = this.state.posts.map((post) => (
+        <Post
+          key={post.id}
+          title={post.title}
+          author={post.author}
+          clicked={() => this.postSelectedHandler(post.id)}
+        />
+      ));
+    }
     return (
       <div>
         <section className='Posts'>{posts}</section>
