@@ -95,6 +95,7 @@ class BurgerBuilder extends Component {
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
         >
+          {/* only if the modal is shown re-render the 'order summary' to improve performance*/}
           <OrderSummary
             ingredients={this.state.ingredients}
             price={this.state.totalPrice}
