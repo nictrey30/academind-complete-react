@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import instance from '../../axios';
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
@@ -15,9 +16,7 @@ class Blog extends Component {
   };
   async componentDidMount() {
     try {
-      const response = await axios.get(
-        'https://jsonplaceholder.typicode.com/posts'
-      );
+      const response = await instance.get('/posts');
       const posts = response.data.slice(0, 4);
       const updatedPosts = posts.map((post) => ({ ...post, author: 'Max' }));
       this.setState({ posts: updatedPosts });
