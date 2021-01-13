@@ -8,7 +8,10 @@ class Modal extends Component {
   // controlling the update of OrderSummary by controlling the way Modal renders
   shouldComponentUpdate(nextProps, nextState) {
     // check only if the 'show' prop changes
-    return nextProps.show !== this.props.show;
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    );
   }
   render() {
     return (
