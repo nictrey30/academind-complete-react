@@ -10,13 +10,13 @@ const withErrorHandler = (WrappedComponent, axios) => {
         error: null
       };
       // axios moved here because we execute this code when the component getsuj8  created, before BurgerBuilder being called
-      axios.interceptors.response.use(
+      this.responseInterceptor = axios.interceptors.response.use(
         (response) => response,
         (error) => {
           this.setState({ error: error });
         }
       );
-      axios.interceptors.request.use((request) => {
+      this.requestInterceptor = axios.interceptors.request.use((request) => {
         // clear any error before the request
         this.setState({ error: null });
         return request;
@@ -39,6 +39,19 @@ const withErrorHandler = (WrappedComponent, axios) => {
     //   return request;
     // });
     // }
+
+    // remove interceptors
+    // componentWillUnmount - executed when a component isn't required anymore, has equivalent the return function in useEffect
+    componentWillUnmount() {
+      // console.log(
+      //   'will unmount',
+      //   this.requestInterceptor,
+      //   this.responseInterceptor
+      // );
+      axios.interceptors.request.eject(this.requestInterceptor);
+      axios.interceptors.response.eject(this.responseInterceptor);
+    }
+
     errorConfirmedHandler = () => {
       this.setState({ error: null });
     };
