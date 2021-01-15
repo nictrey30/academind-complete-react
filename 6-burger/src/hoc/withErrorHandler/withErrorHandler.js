@@ -4,12 +4,11 @@ import Aux from '../Aux/Aux';
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return class extends Component {
-    state = {
-      error: null
-    };
-    // componentDidMount is called after all React Child Components have been rendered
-    // The componentWillMount() lifecycle hook is primarily used to implement server-side logic before the actual rendering happens, such as making an API call to the server.
-    UNSAFE_componentWillMount() {
+    constructor(props) {
+      super(props);
+      this.state = {
+        error: null
+      };
       axios.interceptors.response.use(
         (response) => response,
         (error) => {
@@ -22,6 +21,22 @@ const withErrorHandler = (WrappedComponent, axios) => {
         return request;
       });
     }
+
+    // componentDidMount is called after all React Child Components have been rendered
+    // The componentWillMount() lifecycle hook is primarily used to implement server-side logic before the actual rendering happens, such as making an API call to the server.
+    // UNSAFE_componentWillMount() {
+    // axios.interceptors.response.use(
+    //   (response) => response,
+    //   (error) => {
+    //     this.setState({ error: error });
+    //   }
+    // );
+    // axios.interceptors.request.use((request) => {
+    //   // clear any error before the request
+    //   this.setState({ error: null });
+    //   return request;
+    // });
+    // }
     errorConfirmedHandler = () => {
       this.setState({ error: null });
     };
