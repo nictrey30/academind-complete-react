@@ -7,7 +7,9 @@ const withErrorHandler = (WrappedComponent, axios) => {
     state = {
       error: null
     };
-    componentDidMount() {
+    // componentDidMount is called after all React Child Components have been rendered
+    // The componentWillMount() lifecycle hook is primarily used to implement server-side logic before the actual rendering happens, such as making an API call to the server.
+    UNSAFE_componentWillMount() {
       axios.interceptors.response.use(
         (response) => response,
         (error) => {
@@ -35,6 +37,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
             {/* willshow an error if not checking, because the Modal is always present */}
             {this.state.error ? this.state.error.message : null}
           </Modal>
+          {/* componentDidMount in the withErrorHandler will only be called once componentDidMount was called in the WrappedComponent, and since we reach out to the web in componentDidMount of the WrappedComponent, we never set up our interceptors*/}
           <WrappedComponent {...this.props} />
         </Aux>
       );
