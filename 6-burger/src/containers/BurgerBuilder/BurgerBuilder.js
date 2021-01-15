@@ -24,14 +24,17 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     // when is true show Spinner, when is false show OrderSummary
-    loading: false
+    loading: false,
+    error: false
   };
 
   componentDidMount() {
     axios
       .get('/ingredients.json')
       .then((response) => this.setState({ ingredients: response.data }))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        this.setState({ error: true });
+      });
   }
 
   updatePurchaseState(ingredients) {
@@ -127,7 +130,11 @@ class BurgerBuilder extends Component {
     }
     let orderSummary = null;
     // Burger and BuildControls depend of this.state.ingredients, but that is retrieved withasync axios, so until they come back i want to display a Spinner
-    let burger = <Spinner />;
+    let burger = this.state.error ? (
+      <p>Ingredients can't be loaded</p>
+    ) : (
+      <Spinner />
+    );
     if (this.state.ingredients) {
       burger = (
         <Aux>

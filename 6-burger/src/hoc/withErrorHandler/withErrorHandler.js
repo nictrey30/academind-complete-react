@@ -9,6 +9,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
       this.state = {
         error: null
       };
+      // axios moved here because we execute this code when the component getsuj8  created, before BurgerBuilder being called
       axios.interceptors.response.use(
         (response) => response,
         (error) => {
@@ -24,6 +25,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
     // componentDidMount is called after all React Child Components have been rendered
     // The componentWillMount() lifecycle hook is primarily used to implement server-side logic before the actual rendering happens, such as making an API call to the server.
+    // componetWillMount is called before the child components are rendered
     // UNSAFE_componentWillMount() {
     // axios.interceptors.response.use(
     //   (response) => response,
