@@ -15,6 +15,7 @@ class NewPost extends Component {
       body: this.state.content,
       author: this.state.author
     };
+    // axios automatically will stringify the data object
     axios
       .post('/posts/', data)
       .then((response) => console.log('posted ok: ', response.data));
