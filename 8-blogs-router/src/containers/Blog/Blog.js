@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import Posts from './Posts/Posts';
 
 import './Blog.css';
@@ -14,11 +14,26 @@ class Blog extends Component {
             <ul>
               <li>
                 {/* a normal link reloads the page and we don't want to lose the state, because each time our application reloads its previous state is lost */}
-                {/* we want to prevent the reloading of the page and let React Router only re-render parts of the dom that needs to be re-rendered */}
-                <a href='/'>Home</a>
+                {/* we want to prevent the reloading of the page and let React Router only re-render parts of the dom that needs to be re-rendered, so we need to use Link */}
+                <Link to='/'>Home</Link>
               </li>
               <li>
-                <a href='/new-post'>New Post</a>
+                {/* 
+                pathname: A string representing the path to link to.
+                search: A string representation of query parameters. 
+                hash: A hash to put in the URL, e.g. #a-hash. 
+                state: State to persist to the location. 
+                */}
+                <Link
+                  to={{
+                    pathname: '/new-post',
+                    // we can add a hash after the url to jump to that pointthat comes after the hash
+                    hash: '#submit',
+                    search: '?quick-submit=true'
+                  }}
+                >
+                  New Post
+                </Link>
               </li>
             </ul>
           </nav>
