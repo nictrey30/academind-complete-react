@@ -6,10 +6,12 @@ class FullPost extends Component {
   state = {
     loadedPost: null
   };
-  async componentDidUpdate() {
+  async componentDidMount() {
+    console.log(this.props);
     // Use this as an opportunity to operate on the DOM when the component has been updated. This is also a good place to do network requests as long as you compare the current props to previous props (e.g. a network request may not be necessary if the props have not changed).
     // BEWARE OF CREATING INFINITE LOOPS!!!
-    if (this.props.id) {
+    // this.props.match is available beacause the component is loaded through the Route
+    if (this.props.match.params.id) {
       if (
         // if there is no post loaded
         // loadedPost is not initially set, so we need the first condition to load it
@@ -20,7 +22,9 @@ class FullPost extends Component {
         (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
       )
         try {
-          const response = await axios.get(`/posts/${this.props.id}`);
+          const response = await axios.get(
+            `/posts/${this.props.match.params.id}`
+          );
           const post = response.data;
           this.setState({
             loadedPost: post

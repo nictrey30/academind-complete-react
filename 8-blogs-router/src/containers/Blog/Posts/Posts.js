@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Post from '../../../components/Post/Post';
 import instance from '../../../axios';
 import './Posts.css';
+import { Link } from 'react-router-dom';
 
 class Posts extends Component {
   state = {
@@ -9,6 +10,7 @@ class Posts extends Component {
   };
 
   async componentDidMount() {
+    // console.log(this.props);
     try {
       const response = await instance.get('/posts');
       const posts = response.data.slice(0, 4);
@@ -28,14 +30,18 @@ class Posts extends Component {
     let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
     // array of jsx elements
 
-    posts = this.state.posts.map((post) => (
-      <Post
-        key={post.id}
-        title={post.title}
-        author={post.author}
-        clicked={() => this.postSelectedHandler(post.id)}
-      />
-    ));
+    posts = this.state.posts.map((post) => {
+      return (
+        // pass route parameters to each post
+        <Link to={'/' + post.id} key={post.id}>
+          <Post
+            title={post.title}
+            author={post.author}
+            clicked={() => this.postSelectedHandler(post.id)}
+          />
+        </Link>
+      );
+    });
 
     return <section className='Posts'>{posts}</section>;
   }
