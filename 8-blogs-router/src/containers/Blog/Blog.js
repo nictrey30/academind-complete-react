@@ -17,7 +17,7 @@ class Blog extends Component {
                 {/* we want to prevent the reloading of the page and let React Router only re-render parts of the dom that needs to be re-rendered, so we need to use Link */}
                 {/* by default React treats the path as a prefix */}
                 <NavLink
-                  to='/'
+                  to='/posts/'
                   exact
                   // activeClassName='my-active'
                   // activeStyle={{
@@ -56,7 +56,7 @@ class Blog extends Component {
         {/* The Routes are passed top to bottom, and the /new-post is parsed first, although it could be interpreted as another /:id route */}
         <Switch>
           <Route path='/new-post' component={NewPost} />
-          <Route path='/' component={Posts} />
+          <Route path='/posts/' component={Posts} />
         </Switch>
       </div>
     );

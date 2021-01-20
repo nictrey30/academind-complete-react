@@ -18,8 +18,7 @@ class FullPost extends Component {
   //     // if we have a loaded post, but we clicked on another post
   //     // only send the request if we load a new post, otherwise we will send infinite requests, because we update the state in the componentDidUpdate and that will trigger a re-render
   //     // if the post was loaded and the id of the loaded post is not the same with the id we get from props, then send a request to get the new post
-  //     if (
-  //       !this.state.loadedPost ||
+  //     if (!this.state.loadedPost ||
   //       (this.state.loadedPost &&
   //         this.state.loadedPost.id !== +this.props.match.params.id)
   //     )
