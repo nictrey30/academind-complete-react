@@ -40,6 +40,7 @@ class FullPost extends Component {
   //   }
   // }
 
+  // componentDidMount is not executed twice, and therefore without componentDidUpdate to check for the id change when we click on another post, it won't re-render
   componentDidMount() {
     console.log(this.props);
     this.loadData();
