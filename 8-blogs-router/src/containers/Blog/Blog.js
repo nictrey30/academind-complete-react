@@ -4,7 +4,6 @@ import './Blog.css';
 
 import Posts from './Posts/Posts';
 import NewPost from './NewPost/NewPost';
-import FullPost from './FullPost/FullPost';
 
 class Blog extends Component {
   render() {
@@ -26,7 +25,7 @@ class Blog extends Component {
                   //   textDecoration: 'underline'
                   // }}
                 >
-                  Home
+                  Posts
                 </NavLink>
               </li>
               <li>
@@ -57,7 +56,6 @@ class Blog extends Component {
         <Switch>
           {/* remove exact because we want to handle all paths starting with new_post */}
           <Route path='/new-post' component={NewPost} />
-          <Route path='/:id' exact component={FullPost} />
           {/* The Routes are passed top to bottom, and the /new-post is parsed first, although it could be interpreted as another /:id route */}
         </Switch>
       </div>

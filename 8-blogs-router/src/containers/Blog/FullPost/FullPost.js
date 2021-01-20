@@ -7,7 +7,7 @@ class FullPost extends Component {
     loadedPost: null
   };
   async componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     // Use this as an opportunity to operate on the DOM when the component has been updated. This is also a good place to do network requests as long as you compare the current props to previous props (e.g. a network request may not be necessary if the props have not changed).
     // BEWARE OF CREATING INFINITE LOOPS!!!
     // this.props.match is available beacause the component is loaded through the Route

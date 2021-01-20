@@ -3,6 +3,8 @@ import Post from '../../../components/Post/Post';
 import instance from '../../../axios';
 import './Posts.css';
 // import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import FullPost from '../FullPost/FullPost';
 
 class Posts extends Component {
   state = {
@@ -23,6 +25,8 @@ class Posts extends Component {
   }
 
   postSelectedHandler = (id) => {
+    // push a new page to the stack of pages
+    // navigating programatically, mostly used after a given  operation has finished
     this.props.history.push({ pathname: '/' + id });
   };
 
@@ -43,8 +47,12 @@ class Posts extends Component {
         // </Link>
       );
     });
-
-    return <section className='Posts'>{posts}</section>;
+    return (
+      <div>
+        <section className='Posts'>{posts}</section>;
+        <Route path='/:id' exact component={FullPost} />;
+      </div>
+    );
   }
 }
 
