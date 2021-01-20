@@ -51,12 +51,12 @@ class Blog extends Component {
         </header>
         {/* <Route path='/' exact render={() => <h1>Home</h1>} />
         <Route path='/' exact render={() => <h1>Home 2</h1>} /> */}
-        <Route path='/' exact component={Posts} />
         {/* the first route that matches a given path will be loaded */}
+        {/* remove exact because we want to handle all paths starting with new_post */}
+        {/* The Routes are passed top to bottom, and the /new-post is parsed first, although it could be interpreted as another /:id route */}
         <Switch>
-          {/* remove exact because we want to handle all paths starting with new_post */}
           <Route path='/new-post' component={NewPost} />
-          {/* The Routes are passed top to bottom, and the /new-post is parsed first, although it could be interpreted as another /:id route */}
+          <Route path='/' component={Posts} />
         </Switch>
       </div>
     );

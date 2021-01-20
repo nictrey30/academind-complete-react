@@ -50,6 +50,8 @@ class Posts extends Component {
     return (
       <div>
         <section className='Posts'>{posts}</section>;
+        {/* this is a nested Route */}
+        {/* when we click on a single Post, and the url changes to /:id we are never going to reach the / path because the Posts component are rendered in the Blog component only on exact, so we need to remove exact from <Route path='/' exact component={Posts} /> in the Blog component*/}
         <Route path='/:id' exact component={FullPost} />;
       </div>
     );
