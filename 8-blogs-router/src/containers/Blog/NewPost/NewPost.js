@@ -12,7 +12,8 @@ class NewPost extends Component {
   };
 
   componentDidMount() {
-    // console.log(this.props);
+    // implementing guard in the guarded page
+    // if unauth => this.history.replace('/posts/');
   }
 
   postDataHandler = () => {

@@ -3,9 +3,19 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import './Blog.css';
 
 import Posts from './Posts/Posts';
-import NewPost from './NewPost/NewPost';
+// import NewPost from './NewPost/NewPost';
+
+// importing for lazy
+import asyncComponent from '../../hoc/asyncComponent';
+const AsyncNewPost = asyncComponent(() => {
+  // dynamic import sintax for import, meaning whatever comes between the () is only imported when the anonymus function is executed, and that happens once we render AsyncNewPost to the screen
+  return import('./NewPost/NewPost');
+});
 
 class Blog extends Component {
+  state = {
+    auth: true
+  };
   render() {
     return (
       <div className='Blog'>
@@ -55,12 +65,13 @@ class Blog extends Component {
         {/* remove exact because we want to handle all paths starting with new_post */}
         {/* The Routes are passed top to bottom, and the /new-post is parsed first, although it could be interpreted as another /:id route */}
         <Switch>
-          <Route path='/new-post' component={NewPost} />
+          {this.state.auth ? (
+            <Route path='/new-post' component={AsyncNewPost} />
+          ) : null}
           <Route path='/posts/' component={Posts} />
-          {/* render posts when the path is / */}
-          {/* <Route path='/' component={Posts} /> */}
-          <Redirect from='/' to='/posts/' />
           {/* if we use Redirect outside the Switch, 'from' can't be specified */}
+          <Redirect from='/' to='/posts/' />
+          {/* catch all rule, should be the last. <Route render={() => <h1>not found</h1>} */}
         </Switch>
       </div>
     );
