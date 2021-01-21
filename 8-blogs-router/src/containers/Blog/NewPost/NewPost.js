@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './NewPost.css';
+import { Redirect } from 'react-router-dom';
 
 class NewPost extends Component {
   state = {
     title: '',
     content: '',
-    author: 'Max'
+    author: 'Max',
+    submitted: false
   };
 
   componentDidMount() {
@@ -20,14 +22,20 @@ class NewPost extends Component {
       author: this.state.author
     };
     // axios automatically will stringify the data object
-    axios
-      .post('/posts/', data)
-      .then((response) => console.log('posted ok: ', response.data));
+    axios.post('/posts/', data).then((response) => {
+      console.log('posted ok: ', response.data);
+      this.setState({ submitted: true });
+      // this.props.history.push('/posts/'); -> usual option
+    });
   };
 
   render() {
+    let redirect = this.state.submitted ? <Redirect to='/posts/' /> : null;
+    // Redirect component replaces the new page on the stack, replicated with this.props.history.replace
     return (
+      // redirect once we made our Post request
       <div className='NewPost'>
+        {redirect}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input
