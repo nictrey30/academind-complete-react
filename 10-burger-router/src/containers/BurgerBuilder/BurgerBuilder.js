@@ -29,6 +29,7 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     axios
       .get('/ingredients.json')
       .then((response) => this.setState({ ingredients: response.data }))
@@ -87,37 +88,55 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   };
 
+  // purchaseContinueHandler = () => {
+  //   // alert('You continue!');
+  //   // the request is about to get sent
+  //   this.setState({ loading: true });
+  //   // send the order to the database -> the endpoint is: node name + .json
+  //   const order = {
+  //     ingredients: this.state.ingredients,
+  //     // for production calculate the totalPrice on the server!, to make sure that the user isn't manipulating the code before sending it
+  //     price: this.state.totalPrice,
+  //     customer: {
+  //       name: 'Max B.',
+  //       address: {
+  //         street: 'Test street 1',
+  //         zipCode: '342000',
+  //         country: 'England'
+  //       },
+  //       email: 'test@test.com'
+  //     },
+  //     deliveryMethod: 'fastest'
+  //   };
+  //   axios
+  //     .post('/orders.json', order)
+  //     .then((response) => {
+  //       // stop loading no matter what the response is, because the request is done even if it failed
+  //       // Modal is only shown if the state.purchasing property is true, so we set it to false to close the modal
+  //       this.setState({ loading: false, purchasing: false });
+  //     })
+  //     .catch((error) => {
+  //       // even if an error has occured we want to stop loading
+  //       this.setState({ loading: false, purchasing: false });
+  //     });
+  // };
+
+  // purchaseContinueHandler with Router
   purchaseContinueHandler = () => {
-    // alert('You continue!');
-    // the request is about to get sent
-    this.setState({ loading: true });
-    // send the order to the database -> the endpoint is: node name + .json
-    const order = {
-      ingredients: this.state.ingredients,
-      // for production calculate the totalPrice on the server!, to make sure that the user isn't manipulating the code before sending it
-      price: this.state.totalPrice,
-      customer: {
-        name: 'Max B.',
-        address: {
-          street: 'Test street 1',
-          zipCode: '342000',
-          country: 'England'
-        },
-        email: 'test@test.com'
-      },
-      deliveryMethod: 'fastest'
-    };
-    axios
-      .post('/orders.json', order)
-      .then((response) => {
-        // stop loading no matter what the response is, because the request is done even if it failed
-        // Modal is only shown if the state.purchasing property is true, so we set it to false to close the modal
-        this.setState({ loading: false, purchasing: false });
-      })
-      .catch((error) => {
-        // even if an error has occured we want to stop loading
-        this.setState({ loading: false, purchasing: false });
-      });
+    // pass the ingredients to Checkout component with Router
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          '=' +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    const queryString = queryParams.join('&');
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString
+    });
   };
 
   render() {

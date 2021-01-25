@@ -48,7 +48,7 @@ class Blog extends Component {
                 <NavLink
                   to={{
                     pathname: '/new-post',
-                    // we can add a hash after the url to jump to that pointthat comes after the hash
+                    // we can add a hash after the url to jump to that point that comes after the hash
                     hash: '#submit',
                     search: '?quick-submit=true'
                   }}
