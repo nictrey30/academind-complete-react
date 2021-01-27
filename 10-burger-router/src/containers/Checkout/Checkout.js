@@ -6,10 +6,12 @@ import ContactData from '../Checkout/ContactData/ContactData';
 class Checkout extends Component {
   state = {
     ingredients: null,
-    totalPrice: 0
+    totalPrice: 0,
+    mounted: false
   };
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
+    this.setState({ mounted: true });
     const query = new URLSearchParams(this.props.location.search);
     const ingredients = {};
     let price = 0;
@@ -33,7 +35,7 @@ class Checkout extends Component {
   };
 
   render() {
-    return (
+    return this.state.mounted ? (
       <div>
         <CheckoutSummary
           ingredients={this.state.ingredients}
@@ -53,7 +55,7 @@ class Checkout extends Component {
           )}
         />
       </div>
-    );
+    ) : null;
   }
 }
 

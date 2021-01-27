@@ -9,7 +9,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
       this.state = {
         error: null
       };
-      // axios moved here because we execute this code when the component getsuj8  created, before BurgerBuilder being called
+      // axios moved here because we execute this code when the component gets  created, before BurgerBuilder being called
       this.responseInterceptor = axios.interceptors.response.use(
         (response) => response,
         (error) => {
